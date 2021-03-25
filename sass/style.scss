@@ -1,0 +1,229 @@
+//sass2 基本設定
+@charset "UTF-8";
+//==========================================
+//サイトの基本設定
+//==========================================
+
+//幅関係の設定 ----------------------------
+$width-base: 1200px; // 全体
+$width-main: 800px;  // メインエリアの幅
+$width-side: 360px;  // サイドバーの幅
+
+//フォント関係の設定 ---------------------
+$font-base:"Yu Gothic", Sans-Serif;
+
+
+//フォントサイズの設定--------------------
+$font-size: 16px ;
+$font-size-ttl: 22px;
+
+// 色関係の設定---------------------------
+$color-main : #3F51B5;
+$color-back : #EFEFEF;
+$color-gray : #00000029;
+$color-red : #E81919;
+$color-border : #707070;
+$color-font-title : #333333;
+$color-font-text : white;
+
+.font-red {
+  color: $color-red;
+}
+
+h1,h2 {
+  color: $color-font-title;
+}
+
+p,li,h3,h4,time {
+  color: $color-font-text;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+// ブレイクポイント-----------------------
+//マップ型変数breakpointsを定義
+$breakpoints: (
+  'sp': 'screen and (max-width: 767px)', //767px以下（スマホ）用の表示
+  'tab': 'screen and (min-width: 768px) and (max-width: 1100px)',  //タブレット用の表示 
+  'pc': 'screen and (min-width: 1101px)' //1101px以上（PC）用の表示
+) !default;
+
+//メディアクエリ用のmixinを定義。デフォ値はsp
+@mixin mq($breakpoint: sp) {
+//map-get(マップ型変数, キー)で値を取得
+  @media #{map-get($breakpoints, $breakpoint)} {
+    //この中をカスタムできる
+    @content;
+  }
+}
+
+// floatの回り込み解除-------------------------------
+@mixin clearfix {
+  &::after {
+      content:"";
+      display: block;
+      clear: both;
+  }
+}
+// ページトップボタン------------------------------
+.page-top {
+  font-size: 50px;
+  background-color: #AFEEDB;
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 60px;
+  text-align: center;
+  color: white;
+}
+//メニュー、モダール展開時画面暗くする------------
+#gray-display {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: gray;
+  opacity: 0.8;
+  z-index: 8;
+}
+
+
+/* ハンバーガーメニュー============================*/
+//ハンバーガーメニューアイコン----------------------
+.hamburger-menu{
+  display: flex;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  z-index: 10;
+  position: absolute;
+  right: 30px;
+  top: 30px;
+ 
+}
+
+.hamburger-menu__line{
+  display: block;
+  width: 100%;
+  height: 4px;
+  border-radius: 4px;
+  background-color:red;
+  position: relative;
+  transition: all 0.5s;
+ 
+}
+
+.hamburger-menu__line::before,
+.hamburger-menu__line::after{
+  content: '';
+  display: block;
+  width: 100%;
+  height: 4px;
+  border-radius: 4px;
+  background-color: red;
+  position: absolute;
+  transition: all 0.5s;
+ 
+}
+
+.hamburger-menu__line::before{
+  transform: translateY(-12px);
+}
+.hamburger-menu__line::after{
+  transform: translateY(12px);
+}
+
+//ハンバーガーメニューを×に変形 jQueryで.openを追加する----
+.hamburger-menu.open .hamburger-menu__line{
+  background-color: transparent;
+}
+.hamburger-menu.open .hamburger-menu__line::before{
+  transform: rotate(45deg);
+}
+.hamburger-menu.open .hamburger-menu__line::after{
+  transform: rotate(-45deg);
+}
+
+
+//ハンバーガーメニュークリックで開くドロワーメニュー-------
+.header-drawer {
+  position: fixed;
+  top: -20px;
+  right: 0;
+  background-color: black;
+  width: 200px;
+  height: 400px;
+  padding-top: 100px;
+  z-index: 9;
+  display: none;
+  
+  li {
+    font-size: 28px;
+    margin-bottom: 20px;
+    padding-left: 30px;
+    list-style: none;
+    text-align: center;
+  }
+}
+ //------------------------------------------
+
+//その他共通設定------------------------------
+
+.inner  {
+  width: 1200px;
+  margin: 0 auto;
+
+  @include mq(tab) {
+    width: 95%;
+  }
+
+  @include mq(sp) {
+    width: 95%;
+  }
+}
+
+.sp-only {
+  display: none;
+  @include mq (sp) {
+    display: block;
+  }
+}
+
+.pc-only {
+  display: block;
+  @include mq (sp) {
+    display: none;
+  }
+  @include mq (tab) {
+    display: none;
+  }
+}
+
+.pc-tab-only {
+  display: block;
+  @include mq (sp) {
+    display: none;
+  }
+}
+
+.sp-tab-only {
+  display: none;
+  @include mq (sp) {
+    display: block;
+  }
+  @include mq (tab) {
+    display: block;
+  }
+}
+//footer下に余白が出来たら消すコード
+// position: absolute;
+// width: 100%;
+
+
+
+//=========================================
